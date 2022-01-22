@@ -13,13 +13,11 @@ def main():
         time.sleep(1)
         activity.process()
         cur_hour = int(time.ctime().split()[3].split(":")[0])
-        if cur_hour > 17 or cur_hour < 8:
+        if cur_hour > 22 or cur_hour < 8:
             quit(main)
         if cur_hour >= next_hour + current_time:
             next_hour += 1
             save_data(Input.apps)
-
-
 
 
 main()

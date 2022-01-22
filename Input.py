@@ -2,7 +2,6 @@ from pynput import keyboard
 from pynput import mouse
 import threading
 
-
 apps = dict()
 in_process = []
 

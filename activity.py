@@ -1,7 +1,7 @@
-import os
 from time import sleep, time
 import log
 import threading
+import Input
 
 
 def main():
@@ -53,6 +53,8 @@ def PidSave(_PID="", d="", t="", wr='y'):
                 List.append(line[0] + ' ' + line[1])
                 if wr == 'y' and line[3] != '0' and not line[0] in BlackList:
                     log.write('+ \t' + line[0] + '\t' + line[1] + '\t' + line[4][:len(line[4])-2].replace('я',' ') + 'Кб' + '\t' + t + '\t' + d.replace('-', '.') + '\n', path + Filename, 'a') # то ДОзаписываем информацию информацию об этом в лог-файл
+                    if line[0] in common_apps:
+                        Input.start(line[0])
                 if line[0] in log.read('killProcessed.conf').split('\n'): # Если же имя процесса есть в списке завершаемых (в файле "killProcessed.conf")
                     log.CommandExecution('taskkill /PID ' + line[1]) # то завершаем этот процесс
     return List
@@ -70,6 +72,8 @@ def PidDel(_PID, d, t, wr='y'):
             List.remove(line)
             if wr == 'y':
                 log.write('- \t' + line + 'Кб' + '\t' + t + '\t' + d.replace('-', '.') + '\n', path + Filename, 'a')
+                if line[0] in common_apps:
+                    Input.stop(line[0])
     return List
 
 
