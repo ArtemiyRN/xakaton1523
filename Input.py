@@ -1,5 +1,7 @@
 from pynput import keyboard
 from pynput import mouse
+import time
+
 
 apps = dict()
 in_process = []
@@ -25,7 +27,7 @@ with mouse.Listener(
 
 def start(app):
     if app not in apps:
-        apps[app] = 0
+        apps[app] = [0, 0]
     if app not in in_process:
         in_process.append(app)
 
@@ -37,4 +39,17 @@ def stop(app):
 
 def action(value):
     for i in in_process:
-        apps[i] += value / len(in_process)
+        apps[i][1] += value / len(in_process)
+
+
+def get_apps():
+    for a in apps.keys():
+        apps[a][2] = apps[a][1] / apps[a][0]
+    return apps
+
+
+def reset_apps():
+    for a in apps.keys():
+        apps[a] = [0, 0, 0]
+
+
