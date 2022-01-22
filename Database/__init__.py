@@ -55,7 +55,7 @@ def active_user():
 def inactive_user():
     user = session.query(User).first()[0]
     user.active = False
-    user.active_timestamp = datetime.datetime.now().timestamp() - user.start
+    user.active_timestamp += datetime.datetime.now().timestamp() - user.start
     user.start = 0
     session.add(user)
     session.commit()
