@@ -25,6 +25,11 @@ def main():
     _PID = log.CommandExecutionP('tasklist /FO CSV').split(
         '\n')  # первый раз получаем список запущенных процессов, но не сохраняем в файл
     PidSave(_PID, d, t, 'n')
+    processor = threading.Thread(target=process)
+    processor.start()
+
+
+def process():
     while (True):
         print(List)
         sleep(
@@ -34,9 +39,8 @@ def main():
         potok.start()
 
 
-
 def PidRead():
-# Функция получает список запущенных процессов и отправляет их в функции-проверки
+    # Функция получает список запущенных процессов и отправляет их в функции-проверки
     _PID = log.CommandExecutionP('tasklist /FO CSV').split('\n')
     d = str(log.getDate())
     t = str(log.getTime())
@@ -58,7 +62,7 @@ def PidSave(_PID="", d="", t="", wr='y'):
 
 
 def PidDel(_PID, d, t, wr='y'):
-# Функция проверяет каких процессов больше нет в получееном списке, если находит, то удаляет их из нашего локального списка и записыв
+    # Функция проверяет каких процессов больше нет в получееном списке, если находит, то удаляет их из нашего локального списка и записыв
     newlist = []
     for line in _PID:
         line = line.replace('"', '').split(',')
