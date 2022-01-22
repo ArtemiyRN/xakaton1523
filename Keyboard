@@ -1,6 +1,7 @@
 from pynput import keyboard
 
 
+time.list()
 def on_press(key):
     try:
         print(key)
