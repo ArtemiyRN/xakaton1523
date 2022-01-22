@@ -25,18 +25,15 @@ def main():
     _PID = log.CommandExecutionP('tasklist /FO CSV').split(
         '\n')  # первый раз получаем список запущенных процессов, но не сохраняем в файл
     PidSave(_PID, d, t, 'n')
-    processor = threading.Thread(target=process)
-    processor.start()
 
 
 def process():
-    while (True):
-        print(List)
-        sleep(
-            1)  # Цикл выполняется через каждую секунду (время можно сократить, однако тогда возрастет нагрузка на систему)
-        potok = threading.Thread(
-            target=PidRead)  # Функция, считывающая список запущенных процессов, будет работать асинхронно
-        potok.start()
+    print(List)
+    sleep(
+        1)  # Цикл выполняется через каждую секунду (время можно сократить, однако тогда возрастет нагрузка на систему)
+    potok = threading.Thread(
+        target=PidRead)  # Функция, считывающая список запущенных процессов, будет работать асинхронно
+    potok.start()
 
 
 def PidRead():

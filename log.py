@@ -1,5 +1,5 @@
 def write(text="Script name: log.py\nFunction: write()\n", fname="log.log", rej="w", cod="utf8"):
-# Функция сохраняет данные в файл
+    # Функция сохраняет данные в файл
     try:
         f = open(fname, rej, encoding=cod)
         f.write(text)
@@ -9,7 +9,7 @@ def write(text="Script name: log.py\nFunction: write()\n", fname="log.log", rej=
         return str(e)
 
 def read(fname="log.log", rej="r", cod="utf8"):
-# Функция считывает данные из файла
+    # Функция считывает данные из файла
     try:
         f = open(fname, rej)
         text = f.read()
@@ -25,25 +25,25 @@ def read(fname="log.log", rej="r", cod="utf8"):
             return str(e)
 
 def CommandExecutionP(command=""):
-# Функция использует устаревшую функцию "popen" из модуля os, однако это работает и вполне удобно
+    # Функция использует устаревшую функцию "popen" из модуля os, однако это работает и вполне удобно
     import os
     result = os.popen(command).read()
     return result
 
 def CommandExecution(command=""):
-# Функция используем модуль os и выполняет cmd команду
+    # Функция используем модуль os и выполняет cmd команду
     import os
     result = os.system(command)
     return result
 
 def getDate():
-# Функция возвращает текущую дату
+    # Функция возвращает текущую дату
     import datetime
     MyDate = datetime.date.today()
     return MyDate
 
 def getTime():
-# Функция возвращает текущее время
+    # Функция возвращает текущее время
     import datetime
     MyTime = datetime.datetime.today().strftime("%H:%M:%S")
     return MyTime

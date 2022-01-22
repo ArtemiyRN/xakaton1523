@@ -12,5 +12,3 @@ def save_data(apps):
         os.mkdir("my.json")
     with open("my.json", "a") as file:
         json.dump(apps, file, indent=4)
-
-
