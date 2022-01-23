@@ -8,3 +8,8 @@ fig, ax = plt.subplots()
 ax.pie(x, labels=labels, colors=colors, autopct='%.0f%%')
 ax.set_title('Survery responses')
 plt.show()
+
+def show_stats(hours):
+  for hour in hours:
+      intensity = sum[hour[app][2] for app in hour]
+      
