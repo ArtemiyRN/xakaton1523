@@ -13,31 +13,29 @@ def main():
 
     common_apps = ["EXCEL.EXE"]
 
-    path = "H:\Documents\d"[:-1] # В переменной хранится путь, по которому будут сохраняться логи
+    path = "H:\Documents\d"[:-1]
     BlackList = log.read('blacklLst.conf').split(
-        '\n')  # Считывается файл, со списком процессов ,которые мониторить не нужно из файла "blackList.conf"
-    d = str(log.getDate())  # Получаем дату
-    t = str(log.getTime())  # Получаем время
-    d = d.split('-')  # Преобразуем вид даты (не обязательно, просто мне так уобнее)
+        '\n')
+    d = str(log.getDate())
+    t = str(log.getTime())
+    d = d.split('-')
     d = d[2] + '-' + d[1] + '-' + d[0]
-    Filename = d.replace('-', '') + t.replace(':', '') + '.log'  # Формируем имя лог-файла
+    Filename = d.replace('-', '')  # Формируем имя лог-файла
     List = list()
     _PID = log.CommandExecutionP('tasklist /FO CSV').split(
-        '\n')  # первый раз получаем список запущенных процессов, но не сохраняем в файл
+        '\n')
     PidSave(_PID, d, t, 'n')
 
 
 def process():
-    print(List)
     sleep(
-        1)  # Цикл выполняется через каждую секунду (время можно сократить, однако тогда возрастет нагрузка на систему)
+        1)
     potok = threading.Thread(
-        target=PidRead)  # Функция, считывающая список запущенных процессов, будет работать асинхронно
+        target=PidRead)
     potok.start()
 
 
 def PidRead():
-    # Функция получает список запущенных процессов и отправляет их в функции-проверки
     _PID = log.CommandExecutionP('tasklist /FO CSV').split('\n')
     d = str(log.getDate())
     t = str(log.getTime())
@@ -55,13 +53,12 @@ def PidSave(_PID="", d="", t="", wr='y'):
                     log.write('+ \t' + line[0] + '\t' + line[1] + '\t' + line[4][:len(line[4])-2].replace('я',' ') + 'Кб' + '\t' + t + '\t' + d.replace('-', '.') + '\n', path + Filename, 'a') # то ДОзаписываем информацию информацию об этом в лог-файл
                     if line[0] in common_apps:
                         Input.start(line[0])
-                if line[0] in log.read('killProcessed.conf').split('\n'): # Если же имя процесса есть в списке завершаемых (в файле "killProcessed.conf")
-                    log.CommandExecution('taskkill /PID ' + line[1]) # то завершаем этот процесс
+                if line[0] in log.read('killProcessed.conf').split('\n'):
+                    log.CommandExecution('taskkill /PID ' + line[1])
     return List
 
 
 def PidDel(_PID, d, t, wr='y'):
-    # Функция проверяет каких процессов больше нет в получееном списке, если находит, то удаляет их из нашего локального списка и записыв
     newlist = []
     for line in _PID:
         line = line.replace('"', '').split(',')
