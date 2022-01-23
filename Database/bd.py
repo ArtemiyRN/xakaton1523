@@ -1,4 +1,3 @@
-from ast import For
 import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import DATETIME, Column, Integer, String, ForeignKey, create_engine, Table, Boolean
@@ -31,7 +30,7 @@ class Hour(Base):
     __tablename__ = 'hours'
     id = Column(Integer, primary_key=True)
 
-    day_id = Column(Integer, ForeignKey='days.id')
+    day_id = Column(Integer, ForeignKey('days.id'))
 
     efficiency = Column(Integer)
 
