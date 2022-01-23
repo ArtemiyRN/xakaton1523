@@ -41,6 +41,9 @@ def stop(app):
 def action(value):
     for i in in_process:
         apps[i][1] += value / len(in_process)
+        if apps[i][0] == 0:
+            apps[i][2] = 0
+            return
         apps[i][2] = apps[i][1] / apps[i][0]
 
 
