@@ -1,5 +1,4 @@
 import tkinter as tk
-import matplotlib
 import threading
 
 
@@ -9,7 +8,6 @@ font = ("Arial Bold", 10)
 
 
 def open_window(title = ""):
-    global window
     global left_frame
     global right_frame
     global description
@@ -20,13 +18,13 @@ def open_window(title = ""):
     stat_button = tk.Button(window, text="Click to show stats", font = font)
     stat_button.grid(row= 0, column= 0)
 
-    left_frame = tk.Frame(window)
-    right_frame = tk.Frame(window)
+    left_frame = tk.Frame(window, width=300, height=300)
+    right_frame = tk.Frame(window, width=300, height=300)
     left_frame.grid(column=0, row=1)
     right_frame.grid(column=1, row=1)
 
-    description = tk.Label(right_frame, text="abcabc", font = font)
-    description.grid(column=0,row=0)
+    description = tk.Label(right_frame, text="", font=font)
+    description.grid(column=0, row=0)
 
     for hour in stats:
         text = stats[hour]

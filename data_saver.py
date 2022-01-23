@@ -14,3 +14,8 @@ def save_data(apps):
         json.dump(apps, file, indent=4)
 
 
+def read_data():
+    with open("my.json", "r") as file:
+        return json.read(file)
+
+
