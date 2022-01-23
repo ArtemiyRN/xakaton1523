@@ -51,10 +51,17 @@ def check_inputs():
     while True:
         i = input("Введите одну из доступных команд").strip()
         com = i.split()
-        if not com[0] in commands.keys() or len(com) != 2:
+        if len(com) not in (2,1):
             print("Директива отсутствует в списке команд")
             continue
-        commands[com[0]](com[1])
+        if not com[0] in commands.keys():
+            print("Директива отсутствует в списке команд")
+            continue
+
+        if len(com) == 2:
+            commands[com[0]](com[1])
+        else:
+            commands[com[0]]()
 
 
 def get_command_list():
@@ -63,7 +70,7 @@ def get_command_list():
 
 current_time = int(time.ctime().split()[3].split(":")[0])
 commands = {"add_app": lambda app: add_app(app), "del_app": lambda app: del_app(app), "open_ui": lambda title: open_ui(title),
-            "build_graph": lambda x: build_graph(), "get_command_list": lambda x: get_command_list()}
+            "build_graph": lambda: build_graph(), "get_command_list": lambda: get_command_list()}
 
 
 input_checker = threading.Thread(target=check_inputs)
