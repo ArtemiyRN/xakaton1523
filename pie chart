@@ -1,0 +1,10 @@
+import matplotlib.pyplot as plt
+
+x = [70, 25, 5]
+labels = ['Рабочие программы', 'Нейтральные программы', 'Отвлекающие программы']
+colors = ['tab:blue', 'tab:gray', 'tab:red']
+
+fig, ax = plt.subplots()
+ax.pie(x, labels=labels, colors=colors, autopct='%.0f%%')
+ax.set_title('Survery responses')
+plt.show()

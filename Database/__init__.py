@@ -47,7 +47,7 @@ def auth_user(name):
 def active_user():
     user = session.query(User).first()[0]
     user.active = True
-    user.start = datetime.datetime.now().timestamp()
+    user.start = dint(datetime.datetime.now().timestamp())
     session.add(user)
     session.commit()
 
@@ -55,7 +55,7 @@ def active_user():
 def inactive_user():
     user = session.query(User).first()[0]
     user.active = False
-    user.active_timestamp += datetime.datetime.now().timestamp() - user.start
+    user.active_timestamp += int(datetime.datetime.now().timestamp()) - user.start
     user.start = 0
     session.add(user)
     session.commit()
@@ -63,14 +63,14 @@ def inactive_user():
 
 def start_programm(name):
     programm = Programm(
-        name=name, start=datetime.datetime.now().timestamp(), actitve_timestamp=0)
+        name=name, start=int(datetime.datetime.now().timestamp()), actitve_timestamp=0)
     session.add(programm)
     session.commit()
     return programm
 
 
 def stop_programm(programm: Programm):
-    programm.active_timestamp = datetime.datetime.now().timestamp() - programm.start
+    programm.active_timestamp = int(datetime.datetime.now().timestamp()) - programm.start
     programm.start = 0
     session.add(programm)
     session.commit()
