@@ -57,13 +57,18 @@ def check_inputs():
         commands[com[0]](com[1])
 
 
+def get_command_list():
+    print(list(commands.keys()))
+
+
 current_time = int(time.ctime().split()[3].split(":")[0])
-commands = {"add_app": lambda app: add_app(app), "del_app": lambda app: del_app(app), "open_ui": lambda title: open_ui(title), "build_graph": lambda x: build_graph()}
+commands = {"add_app": lambda app: add_app(app), "del_app": lambda app: del_app(app), "open_ui": lambda title: open_ui(title),
+            "build_graph": lambda x: build_graph(), "get_command_list": lambda x: get_command_list()}
 
 
 input_checker = threading.Thread(target=check_inputs)
 input_checker.start()
 
-
-main()
+if __name__ == "__main__":
+    main()
 input_checker.join()
